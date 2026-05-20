@@ -118,16 +118,12 @@ spec:
             periodSeconds: {{ .Values.deployment.startupProbe.periodSeconds }}
             failureThreshold: {{ .Values.deployment.startupProbe.failureThreshold }}
           livenessProbe:
-            httpGet:
-              path: /health/liveness
+            tcpSocket:
               port: {{ .Values.deployment.container.port }}
-              scheme: {{ if .Values.configuration.server.httpOnly }}HTTP{{ else }}HTTPS{{ end }}
             periodSeconds: {{ .Values.deployment.livenessProbe.periodSeconds }}
           readinessProbe:
-            httpGet:
-              path: /health/readiness
+            tcpSocket:
               port: {{ .Values.deployment.container.port }}
-              scheme: {{ if .Values.configuration.server.httpOnly }}HTTP{{ else }}HTTPS{{ end }}
             initialDelaySeconds: {{ .Values.deployment.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.deployment.readinessProbe.periodSeconds }}
           resources:
